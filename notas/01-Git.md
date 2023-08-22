@@ -1,10 +1,3 @@
----
-marp: true
-theme: default
-paginate: true
-_paginate: false
----
-
 # `git` ultrabásico
 
 ![width:280px height:200](https://raw.githubusercontent.com/louim/in-case-of-fire/master/in_case_of_fire.png)
