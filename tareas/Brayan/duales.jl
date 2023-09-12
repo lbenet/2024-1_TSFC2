@@ -1,7 +1,11 @@
 module DifAutom  
 
-    import Base.==, Base.+, Base.-, Base.*, Base./, Base.^, Base.√, Base.exp, Base.log, Base.sin, Base.cos, Base.tan, Base.asin, Base.acos, Base.atan, Base.sinh, Base.cosh, Base.tanh, Base.asinh, Base.acosh, Base.atanh
+    import Base.==, Base.+, Base.-, Base.*, Base./, Base.^, Base.√, Base.exp, Base.log, Base.sin, Base.cos, Base.tan, 
+            Base.asin, Base.acos, Base.atan, Base.sinh, Base.cosh, Base.tanh, Base.asinh, Base.acosh, Base.atanh, Base.inv
     export Dual
+    export dual
+    export der
+    export fun
 
     #=
     Definimos la estructura de los Duales con su valor real y su respectiva derivada, ambas dadas por el parametro T que es un número Real
@@ -20,7 +24,7 @@ module DifAutom
     der(D::Dual) = D.der
     Dual(a,b) = Dual(promote(a,b)[1],promote(a,b)[2])
     Dual(c) = Dual(c,0.0)
-    dual(x) = Dual(x,1.0)
+    dual(x) = Dual(x,1)
 
     #=
     Generamos un metodo para el caso en el que el Dual recibe enteros. En el caso de que alguno de los dos sea BigFloat simplemente se promueve como en el resto
@@ -89,20 +93,20 @@ module DifAutom
     Analogo al caso de las operaciones basicas, se definen las operaciones de exp, sin, cos, tan, asin, acos, atan, sinh, cosh, tanh, asinh, acosh y atanh
     con sus respectivas reglas de derivación.
     =#
-    √(D_1::Dual) = Dual(√(fun(D_1)), 1/(2*fun(D_1))*der(D_1))
+    √(D_1::Dual) = Dual(√(fun(D_1)), 1/(2*sqrt(fun(D_1)))*der(D_1))
     exp(D_1::Dual) = Dual(exp(fun(D_1)), exp(fun(D_1))*der(D_1))
     log(D_1::Dual) = Dual(log(fun(D_1)), 1/(fun(D_1))*der(D_1))
     sin(D_1::Dual) = Dual(sin(fun(D_1)), cos(fun(D_1))*der(D_1))
     cos(D_1::Dual) = Dual(cos(fun(D_1)), -sin(fun(D_1))*der(D_1))
     tan(D_1::Dual) = Dual(tan(fun(D_1)), sec(fun(D_1))^2*der(D_1))
-    asin(D_1::Dual) = Dual(asin(fun(D_1)), 1/√(1 - fun(d_1)^2)*der(D_1))
-    acos(D_1::Dual) = Dual(acos(fun(D_1)), -1/√(1 - fun(d_1)^2)*der(D_1))
-    atan(D_1::Dual) = Dual(atan(fun(D_1)), 1/(1 + fun(d_1)^2)*der(D_1))
+    asin(D_1::Dual) = Dual(asin(fun(D_1)), 1/√(1 - fun(D_1)^2)*der(D_1))
+    acos(D_1::Dual) = Dual(acos(fun(D_1)), -1/√(1 - fun(D_1)^2)*der(D_1))
+    atan(D_1::Dual) = Dual(atan(fun(D_1)), 1/(1 + fun(D_1)^2)*der(D_1))
     sinh(D_1::Dual) = Dual(sinh(fun(D_1)), cosh(fun(D_1))*der(D_1))
     cosh(D_1::Dual) = Dual(cosh(fun(D_1)), sinh(fun(D_1))*der(D_1))
     tanh(D_1::Dual) = Dual(tanh(fun(D_1)), sech(fun(D_1))^2*der(D_1))
-    asinh(D_1::Dual) = Dual(asinh(fun(D_1)), 1/√(1 + fun(d_1)^2)*der(D_1))
-    acosh(D_1::Dual) = Dual(acosh(fun(D_1)), 1/(√(1 - fun(d_1))*√(1 + fun(d_1)))*der(D_1))
-    atanh(D_1::Dual) = Dual(atanh(fun(D_1)), 1/(1 - fun(d_1)^2)*der(D_1))
+    asinh(D_1::Dual) = Dual(asinh(fun(D_1)), 1/√(1 + fun(D_1)^2)*der(D_1))
+    acosh(D_1::Dual) = Dual(acosh(fun(D_1)), 1/(√(fun(D_1)-1)*√(1+fun(D_1)))*der(D_1))
+    atanh(D_1::Dual) = Dual(atanh(fun(D_1)), 1/(1 - fun(D_1)^2)*der(D_1))
 
 end
