@@ -23,8 +23,8 @@ module DifAutom
     fun(D::Dual) = D.fun
     der(D::Dual) = D.der
     Dual(a,b) = Dual(promote(a,b)[1],promote(a,b)[2])
-    Dual(c) = Dual(c,0.0)
-    dual(x) = Dual(x,1)
+    Dual(c) = Dual(c,zero(c))
+    dual(x) = Dual(x,one(x))
 
     #=
     Generamos un metodo para el caso en el que el Dual recibe enteros. En el caso de que alguno de los dos sea BigFloat simplemente se promueve como en el resto
@@ -85,7 +85,7 @@ module DifAutom
     /(D_1::Dual, D_2::Dual) = Dual(fun(D_1)/fun(D_2), (der(D_1)*fun(D_2)-der(D_2)*fun(D_1))/fun(D_2)^2)
     /(D_1::Dual, a::Number) = Dual(fun(D_1)/a, der(D_1)/a)
     /(a::Number, D_1::Dual) = Dual(a/fun(D_1), -a*der(D_1)/fun(D_1)^2)
-    inv(D_1::Dual) = /(1, D_1::Dual)
+    inv(D_1::Dual) = /(1, D_1)
     ^(D_1::Dual, n::Int) = Dual(fun(D_1)^n, n*fun(D_1)^(n-1)*der(D_1))
     ^(D_1::Dual, a::Real) = Dual(fun(D_1)^a, a*fun(D_1)^(a-1)*der(D_1))
 
