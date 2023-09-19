@@ -1,7 +1,7 @@
 module DifAutom
 
     # Exporta todas las funciones del módulo.
-    export Dual, fun, der, dual, +, -, *, /, ^, ==, inv, sqrt, sin, cos, tan, asin, acos, atan, sinh, cosh, tanh, asinh, acosh, atanh, exp, log
+    export Dual, fun, der, dual
     ### 1
 
     struct Dual{T <: Real} # Define un objeto Dual con dos partes que corresponden a una función y su derivada.
