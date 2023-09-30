@@ -408,5 +408,3 @@ module DifAutom
     end
 
 end
-
-using .DifAutom
