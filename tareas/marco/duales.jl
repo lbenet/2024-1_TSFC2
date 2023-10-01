@@ -37,13 +37,13 @@ end
 
 # Constructor para crear un número dual a partir de un solo valor.
 # La derivada se establece en 0 por defecto.
-function Dual(a::T) where {T<:Number}
+function Dual(a::T) where {T<:Real}
     return Dual(a, 0)
 end
 
-# Constructor para crear un número dual a partir de un solo valor.
+# Constructor para crear un número dual que funcione como punto de interés.
 # La derivada se establece en 1 por defecto.
-function dual(a::T) where {T<:Number}
+function dual(a::T) where {T<:Real}
     return Dual(a, 1)
 end
 
@@ -109,20 +109,12 @@ end
 
 # Sobrecarga del operador de igualdad para números duales.
 ==(a::Dual, b::Dual) = a.fun == b.fun && a.der == b.der
+==(a::Real, b::Dual) = a == b.fun && b.der == 0
+==(b::Dual, a::Real) = a == b.fun && b.der == 0
 
-# Sobrecarga del operador de igualdad para un número y un número dual.
-function ==(a::Number, b::Dual)
-    if a isa Number && b.der == 0
-        return a == b.fun
-    else
-        return false
-    end
-end
 
-# Sobrecarga de la función de igualdad especializada para BigFloat.
-function ==(a::Dual{BigFloat}, b::BigFloat)
-    return a.fun == b
-end
+
+
 
 
 
