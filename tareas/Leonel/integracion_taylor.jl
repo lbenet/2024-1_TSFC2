@@ -1,4 +1,4 @@
-using TaylorSeries, Plots
+using TaylorSeries
 
 function coefs_taylor(f,t,u,p)
     
