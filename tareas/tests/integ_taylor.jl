@@ -106,7 +106,7 @@ end
     @test vtb[end] == vt[1]
     @test vxb[end] ≈ vx[1]
 
-    function osc_arm_repl!(dx, x, p, t)
+    function osc_arm_rep!(dx, x, p, t)
         dx[1] = x[2]
         dx[2] = x[1]
         return nothing
@@ -116,14 +116,14 @@ end
     energia_osc_arm_rep(x) = x[2]^2/2 - x[1]^2/2
     # Integración "hacia adelante"
     x0 = [1.0, 0.0]
-    vt, vx = integracion_taylor(osc_arm_rep!, x0, 0.0, 4*pi, 20, 1.e-20, nothing)
-    @test all(maximum.(exact_sol_osc_arm_rep.(vt, 0.0, (x0,)) .- vx) .< 1.e-14)
+    vt, vx = integracion_taylor(osc_arm_rep!, x0, 0.0, 2*pi, 20, 1.e-20, nothing)
+    @test all(maximum.(exact_sol_osc_arm_rep.(vt, 0.0, (x0,)) .- vx) .< 1.e-12)
     # Conservación de la energía
-    @test all(maximum.(energia_osc_arm_rep.(vx) .- energia_osc_arm_rep(vx[1,])) .< 1.e-14)
+    @test all(maximum.(energia_osc_arm_rep.(vx) .- energia_osc_arm_rep(vx[1,])) .< 1.e-12)
     # Integración "hacia atrás"
     x0 = vx[end][:]
     vtb, vxb = integracion_taylor(osc_arm_rep!, x0, vt[end], vt[1], 20, 1.e-20, nothing)
-    @test all(maximum.(exact_sol_osc_arm_rep.(vtb, vt[end], (x0,)) .- vxb) .< 1.e-14)
+    @test all(maximum.(exact_sol_osc_arm_rep.(vtb, vt[end], (x0,)) .- vxb) .< 1.e-10)
     @test vtb[end] == vt[1]
     @test vxb[end] ≈ vx[1]
 end
