@@ -29,7 +29,7 @@ module IntegTaylor
         p₂ = findall(x-> x!=0, u.coeffs)[end-1]
         u₁, u₂ = u.coeffs[p₁], u.coeffs[p₂]
         h = min((ϵ/abs(u₁))^(1/(p₁-1)),(ϵ/abs(u₂))^(1/(p₂-1)))
-        h = h*0.41
+        h = h*0.85
         return h
     end
 
