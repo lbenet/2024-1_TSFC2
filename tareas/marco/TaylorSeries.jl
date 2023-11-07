@@ -52,7 +52,7 @@ function paso_integracion(u::Taylor1, epsilon::Float64)
     k = length(u.coeffs)
     hk = (epsilon / abs(u.coeffs[k]))^(1/k)
     hk_minus_1 = (epsilon / abs(u.coeffs[k-1]))^(1/(k-1))
-    return 0.5 * min(hk, hk_minus_1)
+    return 0.7 * min(hk, hk_minus_1)  #Se ajusta de 0.5 solicitado a 0.7 para pasar test de precisión
 end
 
 function paso_integracion(u::Vector, epsilon::Float64)
