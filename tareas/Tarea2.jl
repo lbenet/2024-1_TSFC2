@@ -1,6 +1,6 @@
 # # Tarea 2
 #
-# Fecha **final** de aceptación del PR: 24 de octubre
+# Fecha **final** de aceptación del PR: 31 de octubre
 #
 # ---
 
